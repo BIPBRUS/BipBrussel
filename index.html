@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Jouw naam] — Trainingsacteur</title>
+<meta name="description" content="Trainingsacteur voor communicatie-, weerbaarheids- en agressietrainingen. Ervaring bij Politieacademie Drachten, NHL Stenden en gemeente Sneek.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #fff9f1;
+    --bg-teal: #eaf7f4;
+    --bg-coral: #fff1ec;
+    --bg-yellow: #fff8e6;
+    --card: #ffffff;
+    --ink: #2b2a28;
+    --ink-soft: #706a63;
+    --coral: #ff6b4a;
+    --coral-dark: #e2502f;
+    --teal: #16b3a3;
+    --teal-dark: #0e8c7f;
+    --yellow: #ffc845;
+    --yellow-dark: #b5860a;
+    --purple: #8b6bff;
+    --purple-dark: #6b4fde;
+    --line: rgba(43,42,40,0.09);
+    --shadow: 0 20px 45px rgba(43,42,40,0.10);
+    --shadow-lg: 0 28px 60px rgba(43,42,40,0.16);
+    --r-lg: 28px;
+    --r-md: 18px;
+    --r-sm: 12px;
+    --maxw: 1180px;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  ::selection{background:var(--yellow); color:var(--ink);}
+  :focus-visible{outline:2px solid var(--coral-dark); outline-offset:3px;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  h1,h2,h3{
+    font-family:var(--serif);
+    font-weight:600;
+    line-height:1.12;
+    margin:0;
+    color:var(--ink);
+  }
+  p{margin:0 0 1em; color:var(--ink-soft);}
+  strong{color:var(--ink); font-weight:700;}
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:12.5px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--coral-dark);
+    background:var(--bg-coral);
+    padding:8px 16px;
+    border-radius:100px;
+    margin-bottom:20px;
+  }
+  .eyebrow::before{content:"●"; font-size:8px; color:var(--coral);}
+  .eyebrow.te{color:var(--teal-dark); background:var(--bg-teal);}
+  .eyebrow.te::before{color:var(--teal);}
+  .eyebrow.ye{color:var(--yellow-dark); background:var(--bg-yellow);}
+  .eyebrow.ye::before{color:var(--yellow);}
+
+  .grad-text{
+    background:linear-gradient(90deg, var(--coral), var(--yellow) 45%, var(--teal) 75%, var(--coral));
+    background-size:300% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:shift 8s ease infinite;
+  }
+  @keyframes shift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:15px;
+    text-decoration:none;
+    padding:15px 28px;
+    border-radius:100px;
+    border:2px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    cursor:pointer;
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, background .25s ease, color .25s ease;
+  }
+  .btn:hover{transform:translateY(-3px) scale(1.02); box-shadow:var(--shadow);}
+  .btn-solid{
+    background:var(--coral);
+    border-color:var(--coral);
+    color:#fff;
+  }
+  .btn-solid:hover{background:var(--coral-dark); border-color:var(--coral-dark);}
+
+  /* ---------- decorative blobs ---------- */
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(50px);
+    opacity:0.55;
+    pointer-events:none;
+    z-index:0;
+    animation:drift 16s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    0%{ transform:translate(0,0) scale(1); }
+    100%{ transform:translate(24px,-30px) scale(1.08); }
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(255,249,241,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px; max-width:var(--maxw); margin:0 auto;
+  }
+  .brand{
+    font-family:var(--serif); font-weight:700; font-size:20px;
+    text-decoration:none; color:var(--ink);
+  }
+  .brand span{color:var(--coral);}
+  .nav-links{display:flex; gap:8px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    position:relative;
+    font-family:var(--sans); font-weight:700; font-size:14.5px;
+    text-decoration:none; color:var(--ink-soft);
+    padding:10px 14px; border-radius:100px;
+    transition:color .2s ease, background .2s ease;
+  }
+  .nav-links a:hover{color:var(--ink); background:var(--bg-coral);}
+  .nav-cta{display:flex; align-items:center; gap:20px;}
+  .nav-toggle{
+    display:none; background:none; border:none; color:var(--ink);
+    width:32px; height:32px; cursor:pointer;
+    flex-direction:column; justify-content:center; gap:6px;
+  }
+  .nav-toggle span{display:block; height:2px; border-radius:2px; background:var(--ink); width:100%;}
+
+  @media (max-width:900px){
+    .nav-links{
+      position:fixed; top:64px; left:0; right:0;
+      background:var(--card);
+      flex-direction:column; gap:0;
+      border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    .nav-links.open{max-height:400px;}
+    .nav-links a{display:block; padding:16px 32px; border-radius:0; border-top:1px solid var(--line);}
+    .nav-cta .btn span{display:none;}
+    .nav-toggle{display:flex;}
+  }
+
+  /* ---------- photo placeholders ---------- */
+  .photo{
+    position:relative;
+    border-radius:var(--r-lg);
+    overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:#fff; text-align:center; padding:24px;
+    box-shadow:var(--shadow);
+  }
+  .photo svg{width:34px; height:34px; margin-bottom:10px; opacity:0.9;}
+  .photo b{font-family:var(--sans); font-weight:800; font-size:14px; display:block;}
+  .photo small{display:block; font-weight:600; font-size:12px; opacity:0.9; margin-top:4px; max-width:220px;}
+  .photo.p1{background:linear-gradient(135deg, var(--coral), var(--yellow));}
+  .photo.p2{background:linear-gradient(135deg, var(--teal), var(--purple));}
+  .photo.p3{background:linear-gradient(135deg, var(--yellow), var(--coral));}
+  .photo.p4{background:linear-gradient(135deg, var(--purple), var(--coral));}
+  .photo.p5{background:linear-gradient(135deg, var(--teal-dark), var(--yellow));}
+
+  .sticker{
+    position:absolute;
+    background:#fff;
+    color:var(--ink);
+    font-weight:800;
+    font-size:13px;
+    padding:12px 18px;
+    border-radius:100px;
+    box-shadow:var(--shadow-lg);
+    display:flex; align-items:center; gap:8px;
+    transform:rotate(-4deg);
+  }
+  .sticker i{width:8px; height:8px; border-radius:50%; background:var(--coral); display:inline-block;}
+
+  /* ---------- section shell ---------- */
+  section{padding:100px 0; position:relative; overflow:hidden;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px, 4vw, 42px);}
+  .section-head p{font-size:17px; margin-top:16px;}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- hero ---------- */
+  .hero{padding:170px 0 110px; background:var(--bg);}
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+    position:relative; z-index:1;
+  }
+  .hero h1{font-size:clamp(36px, 5.4vw, 62px); margin-bottom:22px;}
+  .hero-sub{font-size:18px; max-width:520px; margin-bottom:34px;}
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:36px;}
+  .hero-tags{display:flex; gap:10px; flex-wrap:wrap;}
+  .tag{
+    font-size:13px; font-weight:700; padding:7px 14px;
+    background:var(--card); border:1px solid var(--line); border-radius:100px;
+    color:var(--ink-soft);
+  }
+  .hero-photo-wrap{position:relative;}
+  .hero-photo{aspect-ratio:4/5; width:100%;}
+  .hero-photo-wrap .sticker{bottom:-18px; left:-18px;}
+  .hero-photo-wrap .sticker.s2{top:-16px; right:-14px; bottom:auto; left:auto; transform:rotate(4deg); background:var(--yellow); box-shadow:var(--shadow);}
+  .sticker{white-space:nowrap;}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-photo{max-width:340px; margin:0 auto;}
+  }
+
+  /* ---------- over mij ---------- */
+  #over-mij{background:var(--card);}
+  .about-grid{display:grid; grid-template-columns:0.8fr 1.2fr; gap:60px; align-items:center;}
+  .about-photo{aspect-ratio:1/1;}
+  .about-text .credentials{list-style:none; margin:28px 0 0; padding:0; display:grid; gap:14px;}
+  .about-text .credentials li{
+    display:flex; gap:12px; align-items:flex-start;
+    font-size:15px; color:var(--ink-soft);
+  }
+  .check{
+    flex-shrink:0; width:22px; height:22px; border-radius:50%;
+    background:var(--bg-teal); color:var(--teal-dark);
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:800; margin-top:2px;
+  }
+  @media (max-width:860px){ .about-grid{grid-template-columns:1fr; gap:36px;} .about-photo{max-width:280px;} }
+
+  /* ---------- aanbod ---------- */
+  #aanbod{background:var(--bg-teal);}
+  .roles{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .role-card{
+    background:var(--card); border-radius:var(--r-md); padding:34px 28px;
+    box-shadow:var(--shadow);
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  }
+  .role-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-lg);}
+  .role-icon{
+    width:52px; height:52px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  .role-icon svg{width:24px; height:24px;}
+  .ri-coral{background:#ffe4db; color:var(--coral-dark);}
+  .ri-teal{background:#d7f4ef; color:var(--teal-dark);}
+  .ri-yellow{background:#fff1cc; color:var(--yellow-dark);}
+  .role-card h3{font-size:22px; margin-bottom:10px;}
+  .role-card p{font-size:15px; margin-bottom:14px;}
+  .role-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
+  .role-list li{font-size:13.5px; color:var(--ink-soft); display:flex; gap:8px;}
+  .role-list li::before{content:"→"; color:var(--coral);}
+  @media (max-width:860px){ .roles{grid-template-columns:1fr;} }
+
+  /* ---------- gallery ---------- */
+  #gallery{background:var(--card);}
+  .gallery-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px;}
+  .gallery-grid .photo:nth-child(2){aspect-ratio:4/5;}
+  .gallery-grid .photo{aspect-ratio:1/1;}
+  @media (max-width:760px){ .gallery-grid{grid-template-columns:1fr;} .gallery-grid .photo{aspect-ratio:4/3;} }
+
+  /* ---------- modellen (compact) ---------- */
+  #modellen{background:var(--bg-coral);}
+  .models-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .model-card{
+    background:var(--card); border-radius:var(--r-md); padding:26px 26px;
+    box-shadow:var(--shadow);
+    display:flex; gap:18px; align-items:flex-start;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  }
+  .model-card:hover{transform:translateY(-5px) rotate(-0.4deg); box-shadow:var(--shadow-lg);}
+  .model-icon{
+    flex-shrink:0; width:48px; height:48px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .model-icon svg{width:22px; height:22px;}
+  .mi-coral{background:#ffe4db; color:var(--coral-dark);}
+  .mi-teal{background:#d7f4ef; color:var(--teal-dark);}
+  .mi-yellow{background:#fff1cc; color:var(--yellow-dark);}
+  .mi-purple{background:#ece5ff; color:var(--purple-dark);}
+  .model-card h3{font-size:17.5px; font-family:var(--sans); font-weight:800; margin-bottom:6px;}
+  .model-card p{font-size:14px; margin-bottom:0;}
+  @media (max-width:700px){ .models-grid{grid-template-columns:1fr;} }
+
+  /* ---------- ervaring ---------- */
+  #ervaring{background:var(--bg-yellow);}
+  .scenes{display:grid; gap:20px;}
+  .scene{
+    background:var(--card); border-radius:var(--r-md);
+    padding:30px 32px; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:180px 1fr; gap:28px;
+    border-left:6px solid var(--coral);
+    transition:transform .25s ease;
+  }
+  .scene:nth-child(2){border-left-color:var(--teal);}
+  .scene:nth-child(3){border-left-color:var(--yellow-dark);}
+  .scene:hover{transform:translateX(4px);}
+  .scene-loc{font-weight:800; font-size:14px; color:var(--ink-soft);}
+  .scene-loc b{display:block; color:var(--ink); font-size:16px; margin-bottom:4px; font-family:var(--serif);}
+  .scene-body h3{font-size:20px; margin-bottom:8px; font-family:var(--sans); font-weight:800;}
+  .scene-body p{font-size:15px; margin-bottom:0;}
+  @media (max-width:700px){ .scene{grid-template-columns:1fr; gap:10px;} }
+
+  /* ---------- contact ---------- */
+  #contact{background:var(--card);}
+  .contact-shell{
+    background:linear-gradient(135deg, var(--coral) 0%, var(--yellow) 100%);
+    color:#fff; border-radius:var(--r-lg);
+    padding:60px; display:grid; grid-template-columns:1fr 1fr; gap:50px;
+    box-shadow:var(--shadow-lg);
+  }
+  @media (max-width:860px){ .contact-shell{grid-template-columns:1fr; padding:36px 24px;} }
+  .contact-shell .eyebrow{background:rgba(255,255,255,0.25); color:#fff;}
+  .contact-shell .eyebrow::before{color:#fff;}
+  .contact-shell h2{color:#fff;}
+  .contact-shell > div > p{color:rgba(255,255,255,0.92);}
+  .contact-info{list-style:none; margin:26px 0 0; padding:0; display:grid; gap:16px;}
+  .contact-info li{font-size:15px; color:#fff;}
+  .contact-info a{text-decoration:none; color:#fff; border-bottom:2px solid rgba(255,255,255,0.5); font-weight:700;}
+  .contact-info .ci-label{display:block; font-weight:800; font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; color:rgba(255,255,255,0.75); margin-bottom:3px;}
+
+  form{display:flex; flex-direction:column; gap:14px; background:#fff; border-radius:var(--r-md); padding:26px;}
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field label{font-weight:800; font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft);}
+  .field input, .field textarea, .field select{
+    font-family:var(--sans); font-size:15px; padding:12px 14px;
+    border:2px solid var(--line); background:#fff; border-radius:var(--r-sm); color:var(--ink);
+  }
+  .field textarea{resize:vertical; min-height:100px;}
+  .field input:focus, .field textarea:focus, .field select:focus{outline:none; border-color:var(--coral);}
+  form .btn-solid{align-self:flex-start; margin-top:4px;}
+  .form-note{font-size:12px; color:var(--ink-soft); margin-top:-4px;}
+
+  /* ---------- footer ---------- */
+  footer{padding:36px 0; background:var(--bg);}
+  .footer-row{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-weight:700; font-size:13.5px; color:var(--ink-soft);
+  }
+  .footer-row a{color:var(--ink-soft); text-decoration:none;}
+  .footer-row a:hover{color:var(--coral-dark);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#top" class="brand">[Naam]<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#over-mij">Over mij</a></li>
+      <li><a href="#aanbod">Aanbod</a></li>
+      <li><a href="#modellen">Modellen</a></li>
+      <li><a href="#ervaring">Ervaring</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-solid"><span>Boek een training</span> →</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu openen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="blob" style="width:420px;height:420px; top:-120px; right:-100px; background:var(--coral);"></div>
+    <div class="blob" style="width:340px;height:340px; bottom:-140px; left:-120px; background:var(--teal); animation-delay:-6s;"></div>
+    <div class="blob" style="width:220px;height:220px; top:40%; left:38%; background:var(--yellow); opacity:0.35; animation-delay:-3s;"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Beschikbaar voor bookingen</span>
+        <h1>Op zoek naar een <span class="grad-text">trainingsacteur</span>?<br>Ik ben beschikbaar.</h1>
+        <p class="hero-sub">
+          Trainer, docent, of werkzaam binnen een organisatie? Ik speel realistische praktijksituaties
+          voor communicatie-, weerbaarheids- en agressietrainingen — zodat deelnemers veilig kunnen oefenen
+          met gesprekstechnieken en het omgaan met uitdagend gedrag.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-solid">Neem contact op →</a>
+          <a href="#ervaring" class="btn">Bekijk mijn ervaring</a>
+        </div>
+        <div class="hero-tags">
+          <span class="tag">Communicatietraining</span>
+          <span class="tag">Weerbaarheidstraining</span>
+          <span class="tag">Agressietraining</span>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <div class="photo p1 hero-photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg>
+          <b>Voeg hier je portretfoto toe</b>
+          <small>bijv. een vriendelijke, professionele foto van jezelf</small>
+        </div>
+        <div class="sticker"><i></i> 5+ maanden bij de Politieacademie</div>
+        <div class="sticker s2">🎭 Minor trainingsacteren</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OVER MIJ ============ -->
+  <section id="over-mij">
+    <div class="wrap about-grid">
+      <div class="photo p2 about-photo reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg>
+        <b>Foto van jezelf</b>
+        <small>bijv. tijdens een training of een natuurlijke close-up</small>
+      </div>
+      <div class="about-text reveal">
+        <span class="eyebrow te">Over mij</span>
+        <h2 style="font-size:clamp(26px,3.4vw,38px); margin-bottom:20px;">Spelen met een doel</h2>
+        <p>De afgelopen periode heb ik de <strong>minor trainingsacteren</strong> gevolgd en ervaring
+        opgedaan bij verschillende organisaties en opleidingen. Als trainingsacteur creëer ik
+        realistische praktijksituaties waarin deelnemers veilig kunnen oefenen met communicatie,
+        gesprekstechnieken en het omgaan met uitdagend gedrag.</p>
+        <p>Ik vind het mooi om bij te dragen aan de ontwikkeling van professionals door leren zo
+        praktijkgericht mogelijk te maken — met spel dat klopt, en een nabespreking die aanzet tot
+        echte reflectie.</p>
+        <ul class="credentials">
+          <li><span class="check">✓</span>Ruim vijf maanden meegewerkt aan trainingen bij de <strong>Politieacademie in Drachten</strong></li>
+          <li><span class="check">✓</span>Opleidingen Rechten, Verpleegkunde en Social Work ondersteund bij <strong>NHL Stenden in Leeuwarden</strong></li>
+          <li><span class="check">✓</span>Meegespeeld in een agressietraining voor medewerkers van de <strong>gemeente Sneek</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AANBOD ============ -->
+  <section id="aanbod">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Waarin ik meespeel</span>
+        <h2>Drie soorten trainingen</h2>
+        <p>Ik word ingezet als tegenspeler, met een rol die past bij het leerdoel van de groep.</p>
+      </div>
+      <div class="roles reveal">
+        <div class="role-card">
+          <div class="role-icon ri-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+          <h3>Communicatietraining</h3>
+          <p>Realistische gesprekssituaties waarin deelnemers oefenen met gesprekstechnieken,
+          feedback geven en ontvangen, en het voeren van lastige gesprekken.</p>
+          <ul class="role-list">
+            <li>Slecht-nieuwsgesprekken</li>
+            <li>Feedback- en functioneringsgesprekken</li>
+            <li>Klantcontact en gespreksvoering</li>
+          </ul>
+        </div>
+        <div class="role-card">
+          <div class="role-icon ri-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></div>
+          <h3>Weerbaarheidstraining</h3>
+          <p>Situaties waarin deelnemers leren grenzen aan te geven, zich staande te houden en
+          zelfverzekerd te reageren op uitdagend gedrag.</p>
+          <ul class="role-list">
+            <li>Grenzen stellen en bewaken</li>
+            <li>Omgaan met manipulatie of druk</li>
+            <li>Zelfverzekerd optreden</li>
+          </ul>
+        </div>
+        <div class="role-card">
+          <div class="role-icon ri-yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 3 14h7l-1 8 11-13h-8z"/></svg></div>
+          <h3>Agressietraining</h3>
+          <p>Oplopende spanning die stap voor stap wordt opgebouwd, zodat deelnemers leren
+          escalerend gedrag te herkennen en te de-escaleren.</p>
+          <ul class="role-list">
+            <li>Herkennen van escalatiefasen</li>
+            <li>De-escalerend reageren</li>
+            <li>Eigen grenzen bewaken</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow ye">In actie</span>
+        <h2>Een kijkje op de trainingsvloer</h2>
+        <p>Een paar sfeerbeelden zeggen vaak meer dan woorden — vul deze plekken met foto's van jezelf in actie.</p>
+      </div>
+      <div class="gallery-grid reveal">
+        <div class="photo p3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg><b>Foto tijdens een training</b></div>
+        <div class="photo p4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg><b>Foto van een rollenspel</b></div>
+        <div class="photo p5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg><b>Foto van een nabespreking</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MODELLEN (compact) ============ -->
+  <section id="modellen">
+    <div class="blob" style="width:280px;height:280px; top:-80px; right:-60px; background:var(--purple); opacity:0.25;"></div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Achter het spel</span>
+        <h2>De modellen die ik gebruik</h2>
+        <p>Tijdens de nabespreking geef ik het geoefende gedrag een taal. Dit zijn de vier modellen
+        waar ik het meest mee werk.</p>
+      </div>
+      <div class="models-grid reveal">
+        <div class="model-card">
+          <div class="model-icon mi-coral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><line x1="12" y1="4" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="20"/><line x1="4" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="20" y2="12"/><circle cx="12" cy="12" r="2"/></svg></div>
+          <div>
+            <h3>Roos van Leary</h3>
+            <p>Laat zien hoe gedrag altijd een reactie oproept bij de ander.</p>
+          </div>
+        </div>
+        <div class="model-card">
+          <div class="model-icon mi-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></div>
+          <div>
+            <h3>Johari-venster</h3>
+            <p>Vergroot zelfinzicht en verbetert feedback en communicatie.</p>
+          </div>
+        </div>
+        <div class="model-card">
+          <div class="model-icon mi-yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 4 L21 20 L3 20 Z"/></svg></div>
+          <div>
+            <h3>Dramadriehoek</h3>
+            <p>Brengt de rollen slachtoffer, redder en aanklager in beeld.</p>
+          </div>
+        </div>
+        <div class="model-card">
+          <div class="model-icon mi-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20 V16 M9 20 V12 M14 20 V8 M19 20 V4"/></svg></div>
+          <div>
+            <h3>ABCD-model</h3>
+            <p>Helpt oplopende agressie herkennen en er goed op reageren.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ERVARING ============ -->
+  <section id="ervaring">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow ye">Waar ik speelde</span>
+        <h2>Ervaring</h2>
+        <p>Een aantal plekken waar ik de afgelopen tijd als trainingsacteur heb meegespeeld.</p>
+      </div>
+      <div class="scenes reveal">
+        <div class="scene">
+          <div class="scene-loc"><b>Politieacademie</b>Drachten</div>
+          <div class="scene-body">
+            <h3>Ruim vijf maanden trainingen</h3>
+            <p>Meegewerkt aan trainingen bij de Politieacademie in Drachten, waarbij realistische
+            praktijksituaties werden nagespeeld voor de ontwikkeling van aankomend politiepersoneel.</p>
+          </div>
+        </div>
+        <div class="scene">
+          <div class="scene-loc"><b>NHL Stenden</b>Leeuwarden</div>
+          <div class="scene-body">
+            <h3>Rechten, Verpleegkunde &amp; Social Work</h3>
+            <p>Verschillende opleidingen ondersteund door gesprekssituaties te spelen waarin
+            studenten konden oefenen met gespreksvoering binnen hun toekomstige beroepspraktijk.</p>
+          </div>
+        </div>
+        <div class="scene">
+          <div class="scene-loc"><b>Gemeente Sneek</b>Sneek</div>
+          <div class="scene-body">
+            <h3>Agressietraining medewerkers</h3>
+            <p>Meegespeeld tijdens een agressietraining voor medewerkers van de gemeente Sneek,
+            gericht op het herkennen van en omgaan met agressief gedrag.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-shell reveal">
+        <div>
+          <span class="eyebrow">Zullen we samenwerken?</span>
+          <h2>Boek me voor je volgende training</h2>
+          <p>Ben je trainer, docent of werkzaam binnen een organisatie en zoek je een trainingsacteur
+          voor een communicatie-, weerbaarheids- of agressietraining? Laat het me weten via het
+          formulier, of neem rechtstreeks contact op.</p>
+          <ul class="contact-info">
+            <li><span class="ci-label">E-mail</span><a href="mailto:naam@voorbeeld.nl">[naam@voorbeeld.nl]</a></li>
+            <li><span class="ci-label">Telefoon</span><a href="tel:+31600000000">[06 - 00 00 00 00]</a></li>
+            <li><span class="ci-label">Regio</span>Beschikbaar in heel Nederland</li>
+          </ul>
+        </div>
+        <form id="contactForm">
+          <div class="field">
+            <label for="f-naam">Naam</label>
+            <input id="f-naam" name="naam" type="text" required>
+          </div>
+          <div class="field">
+            <label for="f-org">Organisatie</label>
+            <input id="f-org" name="organisatie" type="text">
+          </div>
+          <div class="field">
+            <label for="f-type">Type training</label>
+            <select id="f-type" name="type">
+              <option>Communicatietraining</option>
+              <option>Weerbaarheidstraining</option>
+              <option>Agressietraining</option>
+              <option>Anders / weet ik nog niet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-bericht">Bericht</label>
+            <textarea id="f-bericht" name="bericht" required placeholder="Vertel iets over de training, de datum en de groep."></textarea>
+          </div>
+          <button type="submit" class="btn btn-solid">Verstuur bericht →</button>
+          <p class="form-note">Opent je e-mailprogramma met dit bericht klaargezet, inclusief onderwerp.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© <span id="year"></span> [Jouw naam] — Trainingsacteur</span>
+    <a href="#top">Terug naar boven ↑</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
