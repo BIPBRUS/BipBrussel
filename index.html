@@ -737,16 +737,11 @@
     const bericht = document.getElementById('f-bericht').value.trim();
 
     return [
-      "Hallo Eline,",
-      "",
-      "Ik neem contact op via je website.",
-      "",
+      "Hallo Eline, Ik neem contact op via je website.",
       `Naam: ${naam}`,
       `Organisatie: ${organisatie || "-"}`,
       `Type training: ${type}`,
-      "",
-      "Bericht:",
-      bericht
+      `Bericht: ${bericht}`
     ].join("\n");
   }
 
