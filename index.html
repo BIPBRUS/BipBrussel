@@ -212,6 +212,13 @@
   .photo.p4{background:linear-gradient(135deg, var(--purple), var(--coral));}
   .photo.p5{background:linear-gradient(135deg, var(--teal-dark), var(--yellow));}
 
+  .photo:has(img){padding:0;}
+  .photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
   .sticker{
     position:absolute;
     background:#fff;
@@ -532,9 +539,15 @@
         <p>Een paar sfeerbeelden zeggen vaak meer dan woorden — vul deze plekken met foto's van jezelf in actie.</p>
       </div>
       <div class="gallery-grid reveal">
-        <div class="photo p3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg><b>Foto tijdens een training</b></div>
-        <div class="photo p4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg><b>Foto van een rollenspel</b></div>
-        <div class="photo p5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg><b>Foto van een nabespreking</b></div>
+        <div class="photo">
+          <img src="images/discussie.jpeg" alt="Trainingssituatie tijdens een discussie">
+        </div>
+        <div class="photo">
+          <img src="images/gesprek.jpeg" alt="Trainingssituatie tijdens een gesprek">
+        </div>
+        <div class="photo">
+          <img src="images/politie.jpeg" alt="Trainingssituatie bij de Politieacademie">
+        </div>
       </div>
     </div>
   </section>
