@@ -399,6 +399,13 @@
   .field textarea{resize:vertical; min-height:100px;}
   .field input:focus, .field textarea:focus, .field select:focus{outline:none; border-color:var(--coral);}
   form .btn-solid{align-self:flex-start; margin-top:4px;}
+  .form-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:4px;
+  }
+  .form-actions .btn{margin:0;}
   .form-note{font-size:12px; color:var(--ink-soft); margin-top:-4px;}
 
   /* ---------- footer ---------- */
@@ -415,7 +422,7 @@
 
 <header>
   <nav class="nav">
-    <a href="#top" class="brand">Eline Rorije<span>.</span></a>
+    <a href="#top" class="brand">[Naam]<span>.</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#over-mij">Over mij</a></li>
       <li><a href="#aanbod">Aanbod</a></li>
@@ -486,7 +493,7 @@
         echte reflectie.</p>
         <ul class="credentials">
           <li><span class="check">✓</span>Ruim vijf maanden meegewerkt aan trainingen bij de <strong>Politieacademie in Drachten</strong></li>
-          <li><span class="check">✓</span>Opleidingen waaronder Rechten, Verpleegkunde en Social Work ondersteund bij <strong>NHL Stenden in Leeuwarden</strong></li>
+          <li><span class="check">✓</span>Opleidingen Rechten, Verpleegkunde en Social Work ondersteund bij <strong>NHL Stenden in Leeuwarden</strong></li>
           <li><span class="check">✓</span>Meegespeeld in een agressietraining voor medewerkers van de <strong>gemeente Sneek</strong></li>
         </ul>
       </div>
@@ -545,6 +552,7 @@
       <div class="section-head reveal">
         <span class="eyebrow ye">In actie</span>
         <h2>Een kijkje op de trainingsvloer</h2>
+        <p>Een paar sfeerbeelden zeggen vaak meer dan woorden — vul deze plekken met foto's van jezelf in actie.</p>
       </div>
       <div class="gallery-grid reveal">
         <div class="photo">
@@ -651,8 +659,8 @@
             Vul dan dit formulier in en vertel me meer over jouw wensen. 
             Of het nu gaat om een communicatie-, weerbaarheids- of agressietraining: samen zorgen we voor een realistische en leerzame ervaring.</p>
           <ul class="contact-info">
-            <li><span class="ci-label">E-mail</span><a href="mailto:elinerorijeer@gmail.com">elinerorijeer@gmail.com</a></li>
-            <li><span class="ci-label">Telefoon</span><a href="tel:+31657331968">[06 - 57 33 19 68]</a></li>
+            <li><span class="ci-label">E-mail</span><a href="mailto:naam@voorbeeld.nl">[naam@voorbeeld.nl]</a></li>
+            <li><span class="ci-label">Telefoon</span><a href="tel:+31600000000">[06 - 00 00 00 00]</a></li>
             <li><span class="ci-label">Regio</span>Beschikbaar in heel Nederland</li>
           </ul>
         </div>
@@ -678,8 +686,13 @@
             <label for="f-bericht">Bericht</label>
             <textarea id="f-bericht" name="bericht" required placeholder="Vertel iets over de training, de datum en de groep."></textarea>
           </div>
-          <button type="submit" class="btn btn-solid">Verstuur bericht →</button>
-          <p class="form-note">Opent je e-mailprogramma met dit bericht klaargezet, inclusief onderwerp.</p>
+          <div class="form-actions">
+            <button type="button" class="btn btn-solid" id="whatsappBtn">Verstuur via WhatsApp →</button>
+            <button type="button" class="btn" id="emailBtn">Liever e-mailen</button>
+          </div>
+          <p class="form-note">
+            WhatsApp opent een gesprek met het bericht al ingevuld. De e-mailknop opent het standaard e-mailprogramma.
+          </p>
         </form>
       </div>
     </div>
@@ -689,12 +702,21 @@
 
 <footer>
   <div class="wrap footer-row">
-    <span>© <span id="year"></span> Eline Rorije </span>
+    <span>© <span id="year"></span> Eline Rorije - Trainingsacteur</span>
     <a href="#top">Terug naar boven ↑</a>
   </div>
 </footer>
 
 <script>
+  /*
+    Vul hieronder alleen deze twee waarden in:
+    - WHATSAPP_NUMBER: landcode + mobiel nummer, ZONDER +, spaties of streepjes.
+      Voorbeeld NL: 31612345678
+    - CONTACT_EMAIL: het e-mailadres waarop Eline bereikbaar is.
+  */
+  const WHATSAPP_NUMBER = "31600000000"; // <-- VERVANG DOOR ELINE'S WHATSAPP-NUMMER
+  const CONTACT_EMAIL = "eline@voorbeeld.nl"; // <-- VERVANG DOOR ELINE'S E-MAILADRES
+
   document.getElementById('year').textContent = new Date().getFullYear();
 
   const navToggle = document.getElementById('navToggle');
@@ -707,6 +729,49 @@
     navLinks.classList.remove('open');
     navToggle.setAttribute('aria-expanded', 'false');
   }));
+
+  const contactForm = document.getElementById('contactForm');
+  const whatsappBtn = document.getElementById('whatsappBtn');
+  const emailBtn = document.getElementById('emailBtn');
+
+  function getFormMessage() {
+    if (!contactForm.reportValidity()) return null;
+
+    const naam = document.getElementById('f-naam').value.trim();
+    const organisatie = document.getElementById('f-org').value.trim();
+    const type = document.getElementById('f-type').value;
+    const bericht = document.getElementById('f-bericht').value.trim();
+
+    return [
+      "Hallo Eline,",
+      "",
+      "Ik neem contact op via je website.",
+      "",
+      `Naam: ${naam}`,
+      `Organisatie: ${organisatie || "-"}`,
+      `Type training: ${type}`,
+      "",
+      "Bericht:",
+      bericht
+    ].join("\n");
+  }
+
+  whatsappBtn.addEventListener('click', () => {
+    const message = getFormMessage();
+    if (!message) return;
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener');
+  });
+
+  emailBtn.addEventListener('click', () => {
+    const message = getFormMessage();
+    if (!message) return;
+
+    const subject = "Aanvraag via website - trainingsacteur";
+    const url = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    window.location.href = url;
+  });
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reduceMotion && 'IntersectionObserver' in window) {
